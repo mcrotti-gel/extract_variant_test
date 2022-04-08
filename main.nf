@@ -56,9 +56,9 @@ process find_chunk {
  * modify channel 
  */
 vep_vcf_list_ch
-		.splitCsv()
-		.map {row -> tuple(val(row[0]), file(row[1]), file(row[2])) }
-		.set {vep_vcf_ch}
+			.splitCsv()
+			.map {row -> [row[0], file(row[1]), file(row[2])] }
+			.set {vep_vcf_ch}
 
 process extract_variant_vep {
 
