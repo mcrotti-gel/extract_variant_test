@@ -69,7 +69,7 @@ process extract_variant_vep {
     file(severity_scale) from severity_scale_ch
 
     output:
-    tuple file("${gene}_annotation.vcf.gz"), file("${gene}_annotation.vcf.gz.csi") into annotation_vcf_ch
+    file("test*") into test_ch
 
     script:
 
