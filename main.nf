@@ -74,7 +74,7 @@ process extract_variant_vep {
     script:
 
     """
-    echo "bcftools +split-vep -i 'SYMBOL="'"${gene}"'"' -c SYMBOL -s worst:missense+ -S ${severity_scale} ${avcf} -O z -o ${gene}_annotation.vcf.gz" > test_${gene}
+    echo "bcftools +split-vep -i  -c SYMBOL -s worst:missense+ -S ${severity_scale} ${avcf} -O z -o ${gene}_annotation.vcf.gz" > test_${gene}
     echo "bcftools index ${gene}_annotation.vcf.gz" >> test_${gene}
     """
 
