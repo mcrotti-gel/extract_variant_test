@@ -57,7 +57,7 @@ process find_chunk {
  */
 vep_vcf_list_ch
 		.splitCsv()
-		.map {row -> tuple(row[0], row[1], row[2]) }
+		.map {row -> tuple(row[0], file(row[1]), file(row[2])) }
 		.set {vep_vcf_ch}
 
 process extract_variant_vep {
