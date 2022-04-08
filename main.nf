@@ -12,6 +12,11 @@ aggv2_bed_ch = Channel
             .fromPath(params.aggv2_chunks_bed)
             .ifEmpty { exit 1, "Cannot find input file : ${params.aggv2_chunks_bed}" }
 
+Channel
+      .fromPath(params.severity_scale)
+      .ifEmpty { exit 1, "Cannot find severity scale : ${params.severity_scale}" }
+      .set {severity_scale_ch}
+
 
 /*
  * Start pipeline
@@ -61,6 +66,7 @@ process extract_variant_vep {
 
     input:
     tuple val(gene), file(avcf), file(avcf_index) from vep_vcf_ch
+    each file(severity_scale) from severity_scale_ch
 
     output:
     file("test*") into test_ch
@@ -68,7 +74,7 @@ process extract_variant_vep {
     script:
 
     """
-    echo "bcftools +split-vep -i  -c SYMBOL -s worst:missense+ -S  ${avcf} -O z -o ${gene}_annotation.vcf.gz" > test_${gene}
+    echo "bcftools +split-vep -i  -c SYMBOL -s worst:missense+ -S ${severity_scale} ${avcf} -O z -o ${gene}_annotation.vcf.gz" > test_${gene}
     echo "bcftools index ${gene}_annotation.vcf.gz" >> test_${gene}
     """
 
