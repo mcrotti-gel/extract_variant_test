@@ -45,8 +45,8 @@ process find_chunk {
 	gvcf_index="$(echo $(bedtools intersect -wo -a ${gene}.bed -b !{aggv2_bed} |cut -f 10).csi)";
     avcf="$(bedtools intersect -wo -a ${gene}.bed -b !{aggv2_bed} |cut -f 11)";
 	avcf_index="$(echo $(bedtools intersect -wo -a ${gene}.bed -b !{aggv2_bed} |cut -f 11).csi)";
-	echo "$gene,$gvcf,$gvcf_index\n" >> geno_files
-	echo "$gene,$avcf,$avcf_index\n" >> anno_files
+	echo "$gene,$gvcf,$gvcf_index" >> geno_files
+	echo "$gene,$avcf,$avcf_index" >> anno_files
     done < !{my_bed}
 
     '''
